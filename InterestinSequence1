@@ -1,0 +1,31 @@
+MOD = 10**9 + 7
+
+def count_subsequences(N):
+    # Initialize the dp array with 0s
+    dp = [[0] * (N + 1) for _ in range(2)]
+
+    # Initialize the first element
+    dp[0][1] = 1  # for odd positions
+    dp[1][1] = 1  # for even positions
+
+    # Iterate through the numbers from 2 to N
+    for i in range(2, N + 1):
+        # Update odd position count based on previous even positions
+        dp[0][i] = (dp[0][i - 1] + dp[1][i - 1]) % MOD
+        # Update even position count based on previous odd positions
+        dp[1][i] = dp[0][i - 1]
+
+    # Return the total count modulo 10^9 + 7
+    return (dp[0][N] + dp[1][N]) % MOD
+
+# Read the number of test cases
+T = int(input().strip())
+
+# Process each test case
+for _ in range(T):
+    # Read the value of N for each test case
+    N = int(input().strip())
+
+    # Output the result for each test case
+    result = count_subsequences(N)
+    print(result-1)
