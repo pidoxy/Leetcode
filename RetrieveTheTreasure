@@ -1,0 +1,27 @@
+MOD = 10**9 + 7
+
+def count_routes(n):
+    # Initialize a list to store the number of ways to reach each step
+    dp = [0] * (n + 1)
+
+    # There is one way to reach step 0 (starting point)
+    dp[0] = 1
+
+    # Iterate through each step and calculate the number of ways to reach it
+    for i in range(1, n + 1):
+        # Calculate the number of ways to reach step i by taking 2 steps or 3 steps
+        if i >= 2:
+            dp[i] = (dp[i] + dp[i - 2]) % MOD
+        if i >= 3:
+            dp[i] = (dp[i] + dp[i - 3]) % MOD
+
+    return dp[n]
+
+# Input reading
+t = int(input().strip())
+for _ in range(t):
+    n = int(input().strip())
+
+    # Calculate and output the result for each test case
+    result = count_routes(n)
+    print(result)
